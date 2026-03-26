@@ -863,6 +863,35 @@ input, textarea, select { font-family: inherit; }
 }
 .design-approach__text { color: var(--text-muted); line-height: 1.9; font-size: 1.0rem; }
 
+/* Two-column split for project detail: description + screenshot */
+.project-detail-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+.project-detail-split__text {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+}
+.project-detail-split__image {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.project-screenshot-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  display: block;
+  object-fit: contain;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -986,8 +1015,9 @@ input, textarea, select { font-family: inherit; }
 }
 .about-intro__text p {
   color: var(--text-muted);
-  line-height: 1.9;
-  margin-bottom: 1rem;
+  line-height: 2;
+  margin-bottom: 1.25rem;
+  font-size: 0.975rem;
 }
 .about-intro__actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.75rem; }
 
@@ -1403,6 +1433,7 @@ input, textarea, select { font-family: inherit; }
   .footer__bottom .container { justify-content: center; text-align: center; }
 
   .design-approach { flex-direction: column; }
+  .project-detail-split { grid-template-columns: 1fr; }
   .results-grid { grid-template-columns: 1fr 1fr; }
   .features-grid { grid-template-columns: 1fr; }
 
