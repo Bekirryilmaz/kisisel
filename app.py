@@ -1,7 +1,15 @@
+import os
 from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = "bekir-yilmaz-web-dev-2024"
+app.secret_key = os.environ.get("SECRET_KEY", "bekir-yilmaz-web-dev-2024-change-in-prod")
+
+CONTACT_INFO = {
+    "whatsapp": "905551234567",
+    "whatsapp_display": "+90 555 123 45 67",
+    "email": "info@bekiryilmaz.dev",
+    "location": "Türkiye",
+}
 
 PROJECTS = {
     "hayder-insaat": {
@@ -73,6 +81,11 @@ PROJECTS = {
         ],
     },
 }
+
+
+@app.context_processor
+def inject_contact():
+    return {"contact": CONTACT_INFO}
 
 
 @app.route("/")

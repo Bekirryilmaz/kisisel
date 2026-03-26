@@ -34,7 +34,7 @@
                 </p>
 
                 <div class="contact-channels">
-                    <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="contact-channel contact-channel--wa">
+                    <a href="https://wa.me/{{ contact.whatsapp }}" target="_blank" rel="noopener" class="contact-channel contact-channel--wa">
                         <div class="contact-channel__icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -46,13 +46,13 @@
                         <i class="fas fa-chevron-right contact-channel__arrow"></i>
                     </a>
 
-                    <a href="mailto:info@bekiryilmaz.dev" class="contact-channel">
+                    <a href="mailto:{{ contact.email }}" class="contact-channel">
                         <div class="contact-channel__icon">
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="contact-channel__text">
                             <strong>E-Posta</strong>
-                            <span>info@bekiryilmaz.dev</span>
+                            <span>{{ contact.email }}</span>
                             <em>24 saat içinde yanıt</em>
                         </div>
                         <i class="fas fa-chevron-right contact-channel__arrow"></i>
@@ -144,7 +144,7 @@
 </section>
 
 <!-- ===== WHATSAPP FLOATING ===== -->
-<a href="https://wa.me/905551234567?text=Merhaba,%20web%20sitesi%20projesi%20hakkında%20bilgi%20almak%20istiyorum." 
+<a href="https://wa.me/{{ contact.whatsapp }}?text=Merhaba,%20web%20sitesi%20projesi%20hakkında%20bilgi%20almak%20istiyorum." 
    target="_blank" 
    rel="noopener"
    class="whatsapp-float"
