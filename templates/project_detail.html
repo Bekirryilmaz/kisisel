@@ -108,6 +108,28 @@
     </div>
 </section>
 
+<!-- ===== ADMIN PANEL & SCREENSHOT ===== -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Yönetim</span>
+            <h2 class="section__title">Özel Admin Paneli</h2>
+        </div>
+        <div class="design-approach fade-up">
+            <div class="design-approach__icon">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <p class="design-approach__text">Bu proje için özel bir admin paneli tasarlanmıştır. Müşteri, içeriklerini kolayca yönetebilmekte; proje görselleri, metinler ve iletişim bilgilerini teknik bilgiye ihtiyaç duymadan güncelleyebilmektedir.</p>
+        </div>
+        {% if project.screenshot %}
+        <div class="fade-up" style="margin-top: 32px; text-align: center;">
+            <img src="{{ project.screenshot }}" alt="{{ project.name }} ekran görüntüsü"
+                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+        </div>
+        {% endif %}
+    </div>
+</section>
+
 <!-- ===== KEY FEATURES ===== -->
 <section class="section section--alt">
     <div class="container">
@@ -171,7 +193,7 @@
             <div class="why-card">
                 <div class="why-card__icon"><i class="fas fa-bolt"></i></div>
                 <h3 class="why-card__title">Hızlı Teslim</h3>
-                <p class="why-card__desc">2–4 hafta içinde projeniz hazır.</p>
+                <p class="why-card__desc">1–2 hafta içinde projeniz hazır.</p>
             </div>
             <div class="why-card">
                 <div class="why-card__icon"><i class="fas fa-medal"></i></div>
@@ -199,7 +221,7 @@
                     <a href="{{ url_for('contact') }}" class="btn btn--accent btn--lg">
                         <i class="fas fa-paper-plane"></i> Ücretsiz Teklif Al
                     </a>
-                    <a href="https://wa.me/{{ contact.whatsapp }}" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+                    <a href="https://wa.me/{{ contact.whatsapp }}?text=Merhaba%20Ebubekir%2C%20portfolyo%20siten%20%C3%BCzerinden%20seninle%20ileti%C5%9Fime%20ge%C3%A7iyorum." target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
                         <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
                     </a>
                 </div>
