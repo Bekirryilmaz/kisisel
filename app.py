@@ -35,6 +35,8 @@ app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME", "captain.cook.023@gmail.com")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD", "")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_USERNAME", "captain.cook.023@gmail.com")
+# Suppress SMTP connection when no password is configured
+app.config["MAIL_SUPPRESS_SEND"] = not bool(os.environ.get("MAIL_PASSWORD"))
 mail = Mail(app)
 
 # File uploads

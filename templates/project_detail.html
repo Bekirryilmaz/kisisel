@@ -115,18 +115,20 @@
             <span class="section__label">Yönetim</span>
             <h2 class="section__title">Özel Admin Paneli</h2>
         </div>
-        <div class="design-approach fade-up">
-            <div class="design-approach__icon">
-                <i class="fas fa-cogs"></i>
+        <div class="project-detail-split fade-up">
+            <div class="project-detail-split__text">
+                <div class="design-approach__icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <p class="design-approach__text" style="margin-top: 1rem;">Bu proje için özel bir admin paneli tasarlanmıştır. Müşteri, içeriklerini kolayca yönetebilmekte; proje görselleri, metinler ve iletişim bilgilerini teknik bilgiye ihtiyaç duymadan güncelleyebilmektedir.</p>
             </div>
-            <p class="design-approach__text">Bu proje için özel bir admin paneli tasarlanmıştır. Müşteri, içeriklerini kolayca yönetebilmekte; proje görselleri, metinler ve iletişim bilgilerini teknik bilgiye ihtiyaç duymadan güncelleyebilmektedir.</p>
+            {% if project.screenshot %}
+            <div class="project-detail-split__image">
+                <img src="{{ project.screenshot }}" alt="{{ project.name }} ekran görüntüsü"
+                     class="project-screenshot-img">
+            </div>
+            {% endif %}
         </div>
-        {% if project.screenshot %}
-        <div class="fade-up" style="margin-top: 32px; text-align: center;">
-            <img src="{{ project.screenshot }}" alt="{{ project.name }} ekran görüntüsü"
-                 style="max-width: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
-        </div>
-        {% endif %}
     </div>
 </section>
 
