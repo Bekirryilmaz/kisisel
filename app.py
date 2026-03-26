@@ -2,7 +2,11 @@ import os
 from flask import Flask, render_template, request, flash, redirect, url_for
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "bekir-yilmaz-web-dev-2024-change-in-prod")
+_secret_key = os.environ.get("SECRET_KEY")
+if not _secret_key:
+    import secrets
+    _secret_key = secrets.token_hex(32)
+app.secret_key = _secret_key
 
 CONTACT_INFO = {
     "whatsapp": "905551234567",
