@@ -153,6 +153,10 @@
         <a href="{{ url_for('admin_project_new') }}">
             <i class="fas fa-plus-circle"></i> Yeni Proje
         </a>
+        <a href="{{ url_for('admin_messages') }}">
+            <i class="fas fa-envelope"></i> Mesajlar
+            {% if unread_count > 0 %}<span style="background:rgba(239,68,68,.15);color:#ef4444;border-radius:20px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:6px;">{{ unread_count }}</span>{% endif %}
+        </a>
         <a href="{{ url_for('index') }}" target="_blank">
             <i class="fas fa-external-link-alt"></i> Siteyi Görüntüle
         </a>
@@ -189,12 +193,12 @@
             <div class="stat-card__value">{{ projects|length }}</div>
         </div>
         <div class="stat-card">
-            <div class="stat-card__label"><i class="fas fa-eye"></i> Site Durumu</div>
-            <div class="stat-card__value" style="font-size:18px;color:#10b981;">Canlı</div>
+            <div class="stat-card__label"><i class="fas fa-envelope"></i> Okunmamış Mesaj</div>
+            <div class="stat-card__value" style="{% if unread_count > 0 %}color:#ef4444;{% else %}color:#10b981;{% endif %}">{{ unread_count }}</div>
         </div>
         <div class="stat-card">
-            <div class="stat-card__label"><i class="fas fa-calendar"></i> Yıl</div>
-            <div class="stat-card__value">2026</div>
+            <div class="stat-card__label"><i class="fas fa-eye"></i> Site Durumu</div>
+            <div class="stat-card__value" style="font-size:18px;color:#10b981;">Canlı</div>
         </div>
     </div>
 

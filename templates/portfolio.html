@@ -25,7 +25,7 @@
         <div class="portfolio__grid portfolio__grid--full">
             {% for project in projects %}
             <div class="project-card fade-up">
-                <div class="project-card__image" style="background: linear-gradient(135deg, {{ project.color_from }}, {{ project.color_to }});">
+                <div class="project-card__image" style="background: linear-gradient(135deg, {{ project.color_from }}, {{ project.color_to }});{% if project.screenshot %} background-image: url('{{ project.screenshot }}'); background-size: cover; background-position: center;{% endif %}">
                     <div class="project-card__overlay">
                         <a href="{{ project.url }}" target="_blank" rel="noopener" class="project-card__visit" aria-label="Canlı Siteyi Ziyaret Et">
                             <i class="fas fa-external-link-alt"></i>
@@ -69,7 +69,7 @@
                     <a href="{{ url_for('contact') }}" class="btn btn--accent btn--lg">
                         <i class="fas fa-paper-plane"></i> Ücretsiz Teklif Al
                     </a>
-                    <a href="https://wa.me/{{ contact.whatsapp }}" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+                    <a href="https://wa.me/{{ contact.whatsapp }}?text=Merhaba%20Ebubekir%2C%20portfolyo%20siten%20%C3%BCzerinden%20seninle%20ileti%C5%9Fime%20ge%C3%A7iyorum." target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
                         <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
                     </a>
                 </div>

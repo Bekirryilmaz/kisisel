@@ -7,7 +7,7 @@ from flask import (
     Flask, render_template, request, flash, redirect, url_for, session, abort
 )
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail, Message
+from flask_mail import Mail, Message as MailMessage
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -149,6 +149,18 @@ class Project(db.Model):
             "results": self.results,
             "screenshot": self.screenshot,
         }
+
+
+class ContactMessage(db.Model):
+    __tablename__ = "contact_messages"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(200), nullable=False)
+    subject = db.Column(db.String(300), nullable=False, default="")
+    message = db.Column(db.Text, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    is_read = db.Column(db.Boolean, default=False, nullable=False)
 
 
 SEED_PROJECTS = [
@@ -299,6 +311,7 @@ def contact():
     if request.method == "POST":
         name = request.form.get("isim", "").strip()
         email = request.form.get("eposta", "").strip()
+        subject = request.form.get("konu", "").strip()
         message = request.form.get("mesaj", "").strip()
 
         if not name or not email or not message:
@@ -306,14 +319,25 @@ def contact():
         elif "@" not in email or "." not in email:
             flash("Geçerli bir e-posta adresi girin.", "error")
         else:
+            # Save to database
+            contact_msg = ContactMessage(
+                name=name,
+                email=email,
+                subject=subject or f"Yeni mesaj: {name}",
+                message=message,
+            )
+            db.session.add(contact_msg)
+            db.session.commit()
+
             # Send email
             try:
-                msg = Message(
-                    subject=f"Yeni İletişim Mesajı: {name}",
+                msg = MailMessage(
+                    subject=f"Yeni İletişim Mesajı: {name}" + (f" - {subject}" if subject else ""),
                     recipients=["captain.cook.023@gmail.com"],
                     body=(
                         f"Gönderen: {name}\n"
                         f"E-Posta: {email}\n"
+                        f"Konu: {subject}\n"
                         f"Tarih: {datetime.now().strftime('%d.%m.%Y %H:%M')}\n\n"
                         f"Mesaj:\n{message}"
                     ),
@@ -362,7 +386,8 @@ def admin_logout():
 @login_required
 def admin_dashboard():
     projects = Project.query.order_by(Project.order).all()
-    return render_template("admin/dashboard.html", projects=projects)
+    unread_count = ContactMessage.query.filter_by(is_read=False).count()
+    return render_template("admin/dashboard.html", projects=projects, unread_count=unread_count)
 
 
 @app.route("/admin/projects/new", methods=["GET", "POST"])
@@ -404,6 +429,34 @@ def admin_project_delete(pid):
     db.session.commit()
     flash("Proje silindi.", "success")
     return redirect(url_for("admin_dashboard"))
+
+
+@app.route("/admin/messages")
+@login_required
+def admin_messages():
+    messages = ContactMessage.query.order_by(ContactMessage.date.desc()).all()
+    unread_count = ContactMessage.query.filter_by(is_read=False).count()
+    return render_template("admin/messages.html", messages=messages, unread_count=unread_count)
+
+
+@app.route("/admin/messages/<int:mid>/read", methods=["POST"])
+@login_required
+def admin_message_read(mid):
+    msg = ContactMessage.query.get_or_404(mid)
+    msg.is_read = True
+    db.session.commit()
+    flash("Mesaj okundu olarak işaretlendi.", "success")
+    return redirect(url_for("admin_messages"))
+
+
+@app.route("/admin/messages/<int:mid>/delete", methods=["POST"])
+@login_required
+def admin_message_delete(mid):
+    msg = ContactMessage.query.get_or_404(mid)
+    db.session.delete(msg)
+    db.session.commit()
+    flash("Mesaj silindi.", "success")
+    return redirect(url_for("admin_messages"))
 
 
 def _save_project_from_form(project, req):
