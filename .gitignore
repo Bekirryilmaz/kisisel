@@ -1,1 +1,4 @@
 __pycache__/
+portfolio.db
+static/uploads/*
+!static/uploads/.gitkeep
