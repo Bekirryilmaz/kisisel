@@ -9,6 +9,7 @@ from flask import (
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -44,9 +45,12 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Admin credentials
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "superadmin")
-ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "Admin@2026!")
+_raw_admin_password = os.environ.get("ADMIN_PASSWORD", "Admin@2026!")
 if not os.environ.get("ADMIN_PASSWORD"):
     logging.warning("ADMIN_PASSWORD env var not set; using default password. Set it in production.")
+if not os.environ.get("MAIL_PASSWORD"):
+    logging.warning("MAIL_PASSWORD env var not set; contact form emails will not be sent.")
+ADMIN_PASSWORD_HASH = generate_password_hash(_raw_admin_password)
 
 CONTACT_INFO = {
     "whatsapp": "905414312769",
@@ -339,7 +343,7 @@ def admin_login():
     if request.method == "POST":
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
-        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        if username == ADMIN_USERNAME and check_password_hash(ADMIN_PASSWORD_HASH, password):
             session["admin_logged_in"] = True
             session["admin_username"] = username
             return redirect(url_for("admin_dashboard"))
