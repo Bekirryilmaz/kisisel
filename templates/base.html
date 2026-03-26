@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Bekir Yılmaz - Profesyonel web geliştirici. Kurumsal web sitesi, e-ticaret, admin panelli sistemler. Modern, hızlı ve SEO uyumlu web çözümleri.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}web geliştirici, web tasarım, kurumsal web sitesi, e-ticaret, flask geliştirici, python geliştirici, freelance{% endblock %}">
+    <meta name="author" content="Bekir Yılmaz">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Bekir Yılmaz | Web Geliştirici{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Kurumsal web sitesi, e-ticaret ve admin panelli sistemler. Modern, hızlı ve SEO uyumlu web çözümleri.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bekiryilmaz.dev{% block og_url %}/{% endblock %}">
+    <meta property="og:locale" content="tr_TR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Bekir Yılmaz | Web Geliştirici{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Profesyonel web çözümleri. Kurumsal siteler, e-ticaret, admin panelli sistemler.{% endblock %}">
+
+    <title>{% block title %}Bekir Yılmaz | Web Geliştirici{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- Sticky Navbar -->
+<nav class="navbar" id="navbar">
+    <div class="container navbar__container">
+        <a href="{{ url_for('index') }}" class="navbar__logo">
+            <span class="logo-by">BY</span><span class="logo-sep"> | </span><span class="logo-text">Web Dev</span>
+        </a>
+
+        <ul class="navbar__menu" id="navMenu">
+            <li><a href="{{ url_for('index') }}" class="navbar__link {% if request.endpoint == 'index' %}active{% endif %}">Anasayfa</a></li>
+            <li><a href="{{ url_for('portfolio') }}" class="navbar__link {% if request.endpoint in ['portfolio', 'project_detail'] %}active{% endif %}">Portföy</a></li>
+            <li><a href="{{ url_for('about') }}" class="navbar__link {% if request.endpoint == 'about' %}active{% endif %}">Hakkımda</a></li>
+            <li><a href="{{ url_for('contact') }}" class="navbar__link {% if request.endpoint == 'contact' %}active{% endif %}">İletişim</a></li>
+            <li><a href="{{ url_for('contact') }}" class="btn btn--accent btn--sm navbar__cta">Teklif Al</a></li>
+        </ul>
+
+        <button class="navbar__hamburger" id="hamburger" aria-label="Menüyü aç" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="flash flash--{{ category }}">
+            <i class="fas {% if category == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+            {{ message }}
+            <button class="flash__close" onclick="this.parentElement.remove()" aria-label="Kapat">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
+
+<!-- Main Content -->
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container footer__grid">
+        <div class="footer__brand">
+            <a href="{{ url_for('index') }}" class="navbar__logo">
+                <span class="logo-by">BY</span><span class="logo-sep"> | </span><span class="logo-text">Web Dev</span>
+            </a>
+            <p class="footer__tagline">Modern web çözümleriyle işinizi dijitale taşıyorum. Kurumsal siteler, e-ticaret ve özel sistemler.</p>
+            <div class="footer__social">
+                <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="social-link social-link--wa" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://github.com/" target="_blank" rel="noopener" class="social-link social-link--gh" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-link social-link--li" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer__col">
+            <h4 class="footer__heading">Hızlı Linkler</h4>
+            <ul class="footer__links">
+                <li><a href="{{ url_for('index') }}">Anasayfa</a></li>
+                <li><a href="{{ url_for('portfolio') }}">Portföy</a></li>
+                <li><a href="{{ url_for('about') }}">Hakkımda</a></li>
+                <li><a href="{{ url_for('contact') }}">İletişim</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__col">
+            <h4 class="footer__heading">Hizmetler</h4>
+            <ul class="footer__links">
+                <li><a href="{{ url_for('contact') }}">Kurumsal Web Sitesi</a></li>
+                <li><a href="{{ url_for('contact') }}">E-Ticaret Çözümleri</a></li>
+                <li><a href="{{ url_for('contact') }}">Admin Panelli Sistemler</a></li>
+                <li><a href="{{ url_for('contact') }}">Özel Web Çözümleri</a></li>
+            </ul>
+        </div>
+
+        <div class="footer__col">
+            <h4 class="footer__heading">İletişim</h4>
+            <ul class="footer__contact-list">
+                <li><i class="fab fa-whatsapp"></i><a href="https://wa.me/905551234567">+90 555 123 45 67</a></li>
+                <li><i class="fas fa-envelope"></i><a href="mailto:info@bekiryilmaz.dev">info@bekiryilmaz.dev</a></li>
+                <li><i class="fas fa-map-marker-alt"></i><span>Türkiye</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer__bottom">
+        <div class="container">
+            <p>&copy; 2024 Bekir Yılmaz. Tüm hakları saklıdır.</p>
+            <p>❤️ ile kodlandı &mdash; Flask &amp; Python</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Main JS -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

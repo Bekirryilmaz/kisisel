@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}Hakkımda | Bekir Yılmaz - Web Geliştirici{% endblock %}
+{% block meta_description %}Bekir Yılmaz hakkında. 3 yıllık deneyimli freelance web geliştirici. Python, Flask, HTML5, CSS3, JavaScript uzmanı.{% endblock %}
+{% block og_url %}/hakkimizda{% endblock %}
+
+{% block content %}
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('index') }}">Anasayfa</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Hakkımda</span>
+        </nav>
+        <h1 class="page-hero__title fade-in">Hakkımda</h1>
+        <p class="page-hero__subtitle fade-in fade-in--delay-1">Sizi işinizde öne çıkaracak dijital çözümler üretiyorum.</p>
+    </div>
+</section>
+
+<!-- ===== ABOUT INTRO ===== -->
+<section class="section">
+    <div class="container">
+        <div class="about-intro fade-up">
+            <div class="about-intro__avatar">
+                <div class="avatar-placeholder">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="about-intro__badges">
+                    <span class="badge badge--green"><i class="fas fa-circle"></i> Müsait</span>
+                    <span class="badge">3+ Yıl Deneyim</span>
+                </div>
+            </div>
+            <div class="about-intro__text">
+                <span class="section__label">Merhaba, Ben</span>
+                <h2 class="about-intro__name">Bekir Yılmaz</h2>
+                <h3 class="about-intro__role">Freelance Web Geliştirici</h3>
+                <p>
+                    Web geliştirme dünyasına olan tutkumla 3 yılı aşkın süredir
+                    işletmelerin dijital dönüşümüne destek oluyorum. Kurumsal web sitelerinden
+                    e-ticaret platformlarına, admin panelli özel sistemlerden API entegrasyonlarına
+                    kadar geniş bir yelpazede projeler geliştirdim.
+                </p>
+                <p>
+                    Her projeye, müşterimin işini büyütecek bir araç ürettiğim bilinciyle yaklaşıyorum.
+                    Teknik mükemmeliyeti modern tasarımla bir araya getirerek, kullanıcıların sevdiği
+                    ve müşterilerimin işine yarayan web uygulamaları geliştiriyorum.
+                </p>
+                <p>
+                    Temiz kod yazma prensiplerine, performansa ve SEO'ya büyük önem veriyorum.
+                    Projeniz bittikten sonra da yanınızda olmaya devam ediyorum.
+                </p>
+                <div class="about-intro__actions">
+                    <a href="{{ url_for('contact') }}" class="btn btn--primary btn--lg">
+                        <i class="fas fa-paper-plane"></i> Benimle Çalış
+                    </a>
+                    <a href="{{ url_for('portfolio') }}" class="btn btn--outline btn--lg">
+                        <i class="fas fa-briefcase"></i> Projelerimi Gör
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Yetenekler</span>
+            <h2 class="section__title">Teknik Becerilerim</h2>
+            <p class="section__subtitle">Frontend'den backend'e, tasarımdan SEO'ya kapsamlı web geliştirme uzmanlığı.</p>
+        </div>
+
+        <div class="skills-grid fade-up">
+            <div class="skills-col">
+                <div class="skills-col__header">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Frontend</h3>
+                </div>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>HTML5</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>CSS3 / SCSS</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>JavaScript</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>Responsive Design</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="95"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-col">
+                <div class="skills-col__header">
+                    <i class="fas fa-server"></i>
+                    <h3>Backend</h3>
+                </div>
+                <div class="skill-items">
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>Python</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>Flask</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>SQLite / PostgreSQL</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-item__info">
+                            <span>REST API</span>
+                            <span>82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar__fill" data-width="82"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WORK APPROACH ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Çalışma Şeklim</span>
+            <h2 class="section__title">Proje Sürecim Nasıl İşler?</h2>
+            <p class="section__subtitle">Şeffaf, verimli ve sonuç odaklı bir çalışma süreci.</p>
+        </div>
+
+        <div class="process-steps fade-up">
+            <div class="process-step">
+                <div class="process-step__num">01</div>
+                <div class="process-step__content">
+                    <h3>Keşif &amp; Analiz</h3>
+                    <p>İhtiyaçlarınızı, hedef kitlenizi ve beklentilerinizi detaylıca dinliyorum. Rakip analizi ve sektör araştırması yapıyorum.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step__num">02</div>
+                <div class="process-step__content">
+                    <h3>Tasarım &amp; Planlama</h3>
+                    <p>Wireframe ve tasarım konsepti hazırlıyorum. Onayınızın ardından geliştirme sürecine başlıyorum.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step__num">03</div>
+                <div class="process-step__content">
+                    <h3>Geliştirme</h3>
+                    <p>Temiz, performanslı ve ölçeklenebilir kod yazıyorum. Süreç boyunca sizi düzenli olarak bilgilendiriyorum.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step__num">04</div>
+                <div class="process-step__content">
+                    <h3>Test &amp; Yayın</h3>
+                    <p>Kapsamlı test sürecinin ardından projenizi yayına alıyorum. Kullanım eğitimi ve dokümantasyon sunuyorum.</p>
+                </div>
+            </div>
+            <div class="process-step">
+                <div class="process-step__num">05</div>
+                <div class="process-step__content">
+                    <h3>Destek &amp; Bakım</h3>
+                    <p>Proje sonrası destek garantisi. Sorunlarınızda WhatsApp üzerinden anında yardım.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section cta-section">
+    <div class="container">
+        <div class="cta-box fade-up">
+            <div class="cta-box__content">
+                <span class="cta-box__label"><i class="fas fa-handshake"></i> Birlikte Çalışalım</span>
+                <h2 class="cta-box__title">Projenizi Birlikte<br>Büyütelim!</h2>
+                <p class="cta-box__subtitle">Ücretsiz danışmanlık görüşmesi için hemen iletişime geçin.</p>
+                <div class="cta-box__actions">
+                    <a href="{{ url_for('contact') }}" class="btn btn--accent btn--lg">
+                        <i class="fas fa-paper-plane"></i> İletişime Geç
+                    </a>
+                    <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Animate skill bars when visible
+const skillBars = document.querySelectorAll('.skill-bar__fill');
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const width = entry.target.dataset.width;
+            entry.target.style.width = width + '%';
+            skillObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+skillBars.forEach(bar => skillObserver.observe(bar));
+</script>
+{% endblock %}

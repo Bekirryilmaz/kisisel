@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}İletişim | Bekir Yılmaz - Ücretsiz Teklif Al{% endblock %}
+{% block meta_description %}Bekir Yılmaz ile iletişime geçin. Ücretsiz web sitesi teklifi alın. WhatsApp, e-posta veya iletişim formu ile ulaşın.{% endblock %}
+{% block og_url %}/iletisim{% endblock %}
+
+{% block content %}
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('index') }}">Anasayfa</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>İletişim</span>
+        </nav>
+        <h1 class="page-hero__title fade-in">İletişim</h1>
+        <p class="page-hero__subtitle fade-in fade-in--delay-1">Projenizi anlatın, size özel ücretsiz teklif hazırlayayım.</p>
+    </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section class="section">
+    <div class="container">
+        <div class="contact-layout fade-up">
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2 class="contact-info__title">Benimle İletişime Geçin</h2>
+                <p class="contact-info__desc">
+                    Web siteniz için ücretsiz danışmanlık almak ister misiniz?
+                    Aşağıdaki form ya da iletişim kanallarımdan bana ulaşın.
+                    Genellikle 24 saat içinde geri dönüş yapıyorum.
+                </p>
+
+                <div class="contact-channels">
+                    <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="contact-channel contact-channel--wa">
+                        <div class="contact-channel__icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-channel__text">
+                            <strong>WhatsApp</strong>
+                            <span>+90 555 123 45 67</span>
+                            <em>En hızlı yanıt yöntemi</em>
+                        </div>
+                        <i class="fas fa-chevron-right contact-channel__arrow"></i>
+                    </a>
+
+                    <a href="mailto:info@bekiryilmaz.dev" class="contact-channel">
+                        <div class="contact-channel__icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-channel__text">
+                            <strong>E-Posta</strong>
+                            <span>info@bekiryilmaz.dev</span>
+                            <em>24 saat içinde yanıt</em>
+                        </div>
+                        <i class="fas fa-chevron-right contact-channel__arrow"></i>
+                    </a>
+
+                    <div class="contact-channel contact-channel--static">
+                        <div class="contact-channel__icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-channel__text">
+                            <strong>Konum</strong>
+                            <span>Türkiye</span>
+                            <em>Uzaktan çalışıyorum</em>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-info__hours">
+                    <h4><i class="fas fa-clock"></i> Çalışma Saatleri</h4>
+                    <p>Pazartesi – Cumartesi: 09:00 – 22:00</p>
+                    <p>Pazar: Acil durumlar için WhatsApp</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-wrap">
+                <div class="contact-form-card">
+                    <h3 class="contact-form-card__title">
+                        <i class="fas fa-paper-plane"></i> Mesaj Gönder
+                    </h3>
+                    <p class="contact-form-card__subtitle">Tüm alanları doldurun, en kısa sürede döneyim.</p>
+
+                    <form action="{{ url_for('contact') }}" method="POST" class="contact-form" id="contactForm" novalidate>
+                        <div class="form-group">
+                            <label for="isim" class="form-label">
+                                <i class="fas fa-user"></i> Adınız Soyadınız *
+                            </label>
+                            <input
+                                type="text"
+                                id="isim"
+                                name="isim"
+                                class="form-input"
+                                placeholder="Örn: Ahmet Yılmaz"
+                                required
+                                autocomplete="name"
+                            >
+                            <span class="form-error" id="isimError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eposta" class="form-label">
+                                <i class="fas fa-envelope"></i> E-Posta Adresiniz *
+                            </label>
+                            <input
+                                type="email"
+                                id="eposta"
+                                name="eposta"
+                                class="form-input"
+                                placeholder="ornek@email.com"
+                                required
+                                autocomplete="email"
+                            >
+                            <span class="form-error" id="epostaError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mesaj" class="form-label">
+                                <i class="fas fa-comment-alt"></i> Mesajınız *
+                            </label>
+                            <textarea
+                                id="mesaj"
+                                name="mesaj"
+                                class="form-input form-textarea"
+                                placeholder="Projeniz hakkında kısaca bilgi verin. Ne tür bir site istiyorsunuz? Bütçeniz ve zamanlamanız nedir?"
+                                rows="6"
+                                required
+                            ></textarea>
+                            <span class="form-error" id="mesajError"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn--accent btn--full btn--lg" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Mesaj Gönder
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHATSAPP FLOATING ===== -->
+<a href="https://wa.me/905551234567?text=Merhaba,%20web%20sitesi%20projesi%20hakkında%20bilgi%20almak%20istiyorum." 
+   target="_blank" 
+   rel="noopener"
+   class="whatsapp-float"
+   aria-label="WhatsApp ile iletişime geç">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-float__tooltip">WhatsApp'tan Yaz!</span>
+</a>
+
+{% endblock %}

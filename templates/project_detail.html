@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} | Portföy - Bekir Yılmaz{% endblock %}
+{% block meta_description %}{{ project.name }} projesi detayları. {{ project.short_desc }}{% endblock %}
+{% block og_url %}/portfolio/{{ project.slug }}{% endblock %}
+{% block og_title %}{{ project.name }} | Bekir Yılmaz Portföy{% endblock %}
+{% block og_description %}{{ project.short_desc }}{% endblock %}
+
+{% block content %}
+
+<!-- ===== PROJECT HERO ===== -->
+<section class="project-hero" style="background: linear-gradient(135deg, {{ project.color_from }} 0%, {{ project.color_to }} 100%);">
+    <div class="container">
+        <nav class="breadcrumb breadcrumb--light" aria-label="Breadcrumb">
+            <a href="{{ url_for('index') }}">Anasayfa</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="{{ url_for('portfolio') }}">Portföy</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>{{ project.name }}</span>
+        </nav>
+        <div class="project-hero__content fade-in">
+            <span class="project-hero__category">{{ project.category }}</span>
+            <h1 class="project-hero__title">{{ project.name }}</h1>
+            <p class="project-hero__desc">{{ project.description }}</p>
+            <div class="project-hero__actions">
+                <a href="{{ project.url }}" target="_blank" rel="noopener" class="btn btn--white btn--lg">
+                    <i class="fas fa-external-link-alt"></i> Canlı Siteyi Ziyaret Et
+                </a>
+                <a href="{{ url_for('contact') }}" class="btn btn--outline-white btn--lg">
+                    <i class="fas fa-paper-plane"></i> Benzer Proje İste
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROJECT SUMMARY ===== -->
+<section class="section">
+    <div class="container">
+        <div class="project-summary fade-up">
+            <div class="project-summary__item">
+                <i class="fas fa-user"></i>
+                <div>
+                    <span class="summary-label">Müşteri</span>
+                    <strong>{{ project.client }}</strong>
+                </div>
+            </div>
+            <div class="project-summary__item">
+                <i class="fas fa-tag"></i>
+                <div>
+                    <span class="summary-label">Kategori</span>
+                    <strong>{{ project.category }}</strong>
+                </div>
+            </div>
+            <div class="project-summary__item">
+                <i class="fas fa-calendar"></i>
+                <div>
+                    <span class="summary-label">Yıl</span>
+                    <strong>{{ project.year }}</strong>
+                </div>
+            </div>
+            <div class="project-summary__item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <span class="summary-label">Süre</span>
+                    <strong>{{ project.duration }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CLIENT NEEDS & SOLUTION ===== -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="two-col fade-up">
+            <div class="two-col__item">
+                <div class="two-col__icon">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <h2 class="two-col__title">Müşterinin İhtiyacı</h2>
+                <p class="two-col__text">{{ project.client_needs }}</p>
+            </div>
+            <div class="two-col__item">
+                <div class="two-col__icon two-col__icon--accent">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h2 class="two-col__title">Çözüm Yaklaşımım</h2>
+                <p class="two-col__text">{{ project.solution }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== DESIGN APPROACH ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Tasarım</span>
+            <h2 class="section__title">Tasarım Yaklaşımım</h2>
+        </div>
+        <div class="design-approach fade-up">
+            <div class="design-approach__icon">
+                <i class="fas fa-paint-brush"></i>
+            </div>
+            <p class="design-approach__text">{{ project.design_approach }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== KEY FEATURES ===== -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Özellikler</span>
+            <h2 class="section__title">Temel Özellikler</h2>
+        </div>
+        <div class="features-grid fade-up">
+            {% for feature in project.features %}
+            <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>{{ feature }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ===== TECHNOLOGIES ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Teknolojiler</span>
+            <h2 class="section__title">Kullanılan Teknolojiler</h2>
+        </div>
+        <div class="tech-tags fade-up">
+            {% for tech in project.technologies %}
+            <span class="tech-tag">{{ tech }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ===== RESULTS ===== -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Sonuçlar</span>
+            <h2 class="section__title">Elde Edilen Sonuçlar</h2>
+            <p class="section__subtitle">Projenin yayına alınmasının ardından ölçülen somut başarılar.</p>
+        </div>
+        <div class="results-grid fade-up">
+            {% for result in project.results %}
+            <div class="result-card">
+                <i class="fas fa-chart-line"></i>
+                <p>{{ result }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHY CHOOSE ME ===== -->
+<section class="section">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Neden Ben?</span>
+            <h2 class="section__title">Neden Bekir Yılmaz?</h2>
+        </div>
+        <div class="why-us__grid why-us__grid--compact fade-up">
+            <div class="why-card">
+                <div class="why-card__icon"><i class="fas fa-bolt"></i></div>
+                <h3 class="why-card__title">Hızlı Teslim</h3>
+                <p class="why-card__desc">2–4 hafta içinde projeniz hazır.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-card__icon"><i class="fas fa-medal"></i></div>
+                <h3 class="why-card__title">Kalite Garantisi</h3>
+                <p class="why-card__desc">Her proje en yüksek standartlarda teslim edilir.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-card__icon"><i class="fas fa-headset"></i></div>
+                <h3 class="why-card__title">Sonrası Destek</h3>
+                <p class="why-card__desc">Teslim sonrası destek garantisi sunuyorum.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section cta-section">
+    <div class="container">
+        <div class="cta-box fade-up">
+            <div class="cta-box__content">
+                <span class="cta-box__label"><i class="fas fa-rocket"></i> Sıradaki</span>
+                <h2 class="cta-box__title">Sizin İçin de Benzer Bir Proje<br>Geliştirebilirim!</h2>
+                <p class="cta-box__subtitle">Ücretsiz danışmanlık için hemen iletişime geçin. İhtiyaçlarınızı dinleyeyim, size özel teklif sunayım.</p>
+                <div class="cta-box__actions">
+                    <a href="{{ url_for('contact') }}" class="btn btn--accent btn--lg">
+                        <i class="fas fa-paper-plane"></i> Ücretsiz Teklif Al
+                    </a>
+                    <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+                        <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

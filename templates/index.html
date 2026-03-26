@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Bekir Yılmaz | Modern & Hızlı Web Çözümleri{% endblock %}
+{% block meta_description %}Profesyonel web geliştirici Bekir Yılmaz. Kurumsal web sitesi, e-ticaret, admin panelli sistemler. İşinizi dijitale taşıyın.{% endblock %}
+{% block og_url %}/{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="hero__bg"></div>
+    <div class="container hero__content">
+        <div class="hero__badge fade-in">
+            <i class="fas fa-code"></i> Freelance Web Geliştirici
+        </div>
+        <h1 class="hero__title fade-in fade-in--delay-1">
+            Modern &amp; Hızlı<br><span class="text-accent">Web Çözümleri</span>
+        </h1>
+        <p class="hero__subtitle fade-in fade-in--delay-2">
+            Kurumsal siteler, e-ticaret ve admin panelli sistemlerle<br class="hide-mobile">
+            işinizi dijitale taşıyorum. Hızlı teslim, premium tasarım.
+        </p>
+        <div class="hero__ctas fade-in fade-in--delay-3">
+            <a href="{{ url_for('portfolio') }}" class="btn btn--primary btn--lg">
+                <i class="fas fa-briefcase"></i> Projelerimi Gör
+            </a>
+            <a href="{{ url_for('contact') }}" class="btn btn--outline btn--lg">
+                <i class="fas fa-paper-plane"></i> Ücretsiz Teklif Al
+            </a>
+        </div>
+        <div class="hero__stats fade-in fade-in--delay-4">
+            <div class="hero__stat">
+                <strong>10+</strong>
+                <span>Tamamlanan Proje</span>
+            </div>
+            <div class="hero__stat-divider"></div>
+            <div class="hero__stat">
+                <strong>%100</strong>
+                <span>Müşteri Memnuniyeti</span>
+            </div>
+            <div class="hero__stat-divider"></div>
+            <div class="hero__stat">
+                <strong>3 Yıl</strong>
+                <span>Deneyim</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero__scroll-indicator">
+        <span>Aşağı Kaydır</span>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section services" id="services">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Hizmetlerim</span>
+            <h2 class="section__title">Size Nasıl Yardımcı Olabilirim?</h2>
+            <p class="section__subtitle">İşletmenizin dijital ihtiyaçlarına özel, ölçeklenebilir ve modern çözümler üretiyorum.</p>
+        </div>
+
+        <div class="services__grid">
+            <div class="service-card fade-up">
+                <div class="service-card__icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3 class="service-card__title">Kurumsal Web Sitesi</h3>
+                <p class="service-card__desc">Firmanızı en iyi şekilde tanıtan, profesyonel ve etkileyici kurumsal web siteleri. SEO uyumlu, hızlı ve güvenilir.</p>
+                <ul class="service-card__list">
+                    <li><i class="fas fa-check"></i> Özel Tasarım</li>
+                    <li><i class="fas fa-check"></i> Mobil Uyumlu</li>
+                    <li><i class="fas fa-check"></i> SEO Optimize</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="service-card__link">Teklif Al <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card fade-up fade-up--delay-1">
+                <div class="service-card__icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <h3 class="service-card__title">E-Ticaret Çözümleri</h3>
+                <p class="service-card__desc">Ürünlerinizi online satmanızı sağlayan, güvenli ödeme sistemli, kullanıcı dostu e-ticaret platformları.</p>
+                <ul class="service-card__list">
+                    <li><i class="fas fa-check"></i> Güvenli Ödeme</li>
+                    <li><i class="fas fa-check"></i> Stok Yönetimi</li>
+                    <li><i class="fas fa-check"></i> Sipariş Takibi</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="service-card__link">Teklif Al <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card fade-up fade-up--delay-2">
+                <div class="service-card__icon service-card__icon--accent">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3 class="service-card__title">Admin Panelli Sistemler</h3>
+                <p class="service-card__desc">İçeriğinizi kendiniz yönetebileceğiniz özel admin panelli sistemler. Teknik bilgiye gerek yok, kolayca güncelleyin.</p>
+                <ul class="service-card__list">
+                    <li><i class="fas fa-check"></i> Kolay Yönetim</li>
+                    <li><i class="fas fa-check"></i> Güvenli Giriş</li>
+                    <li><i class="fas fa-check"></i> Özel Raporlama</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="service-card__link">Teklif Al <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card fade-up fade-up--delay-3">
+                <div class="service-card__icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h3 class="service-card__title">Özel Web Çözümleri</h3>
+                <p class="service-card__desc">Randevu sistemleri, rezervasyon platformları, özel veritabanı uygulamaları. Hayal ettiğiniz her şeyi koda dönüştürüyorum.</p>
+                <ul class="service-card__list">
+                    <li><i class="fas fa-check"></i> Tam Özelleştirme</li>
+                    <li><i class="fas fa-check"></i> API Entegrasyonu</li>
+                    <li><i class="fas fa-check"></i> Ölçeklenebilir</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="service-card__link">Teklif Al <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="section why-us" id="why-us">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Neden Ben?</span>
+            <h2 class="section__title">Beni Tercih Etmeniz İçin 5 Sebep</h2>
+            <p class="section__subtitle">Freelance çalışmanın esnekliğini kurumsal kaliteyle birleştiriyorum.</p>
+        </div>
+
+        <div class="why-us__grid">
+            <div class="why-card fade-up">
+                <div class="why-card__icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="why-card__title">Hızlı Teslim</h3>
+                <p class="why-card__desc">Çoğu proje 2–4 hafta içinde teslim edilir. Zaman değerli — hızlı başlayalım, hızlı bitirelim.</p>
+            </div>
+
+            <div class="why-card fade-up fade-up--delay-1">
+                <div class="why-card__icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3 class="why-card__title">Modern Tasarım</h3>
+                <p class="why-card__desc">Günümüz standartlarında, estetik ve kullanıcı dostu arayüzler tasarlıyorum. Rakiplerinizden sıyrılın.</p>
+            </div>
+
+            <div class="why-card fade-up fade-up--delay-2">
+                <div class="why-card__icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="why-card__title">SEO Uyumlu</h3>
+                <p class="why-card__desc">Google'da üst sıralara çıkın. Tüm projeler teknik SEO standartlarına uygun olarak geliştirilir.</p>
+            </div>
+
+            <div class="why-card fade-up fade-up--delay-3">
+                <div class="why-card__icon">
+                    <i class="fas fa-hand-pointer"></i>
+                </div>
+                <h3 class="why-card__title">Kolay Yönetilebilir</h3>
+                <p class="why-card__desc">Teknik bilgiye gerek yok. Admin panelinizden içeriklerinizi kolayca güncelleyin ve yönetin.</p>
+            </div>
+
+            <div class="why-card fade-up fade-up--delay-4">
+                <div class="why-card__icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="why-card__title">7/24 Destek</h3>
+                <p class="why-card__desc">Teslim sonrası destek garantisi. Sorun yaşadığınızda WhatsApp üzerinden anında yardım alın.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PORTFOLIO PREVIEW ===== -->
+<section class="section portfolio-preview" id="portfolio-preview">
+    <div class="container">
+        <div class="section__header fade-up">
+            <span class="section__label">Portföy</span>
+            <h2 class="section__title">Öne Çıkan Projeler</h2>
+            <p class="section__subtitle">Gerçek müşteriler için ürettiğim, canlıya alınmış projelerden örnekler.</p>
+        </div>
+
+        <div class="portfolio__grid">
+            {% for project in projects %}
+            <div class="project-card fade-up">
+                <div class="project-card__image" style="background: linear-gradient(135deg, {{ project.color_from }}, {{ project.color_to }});">
+                    <div class="project-card__overlay">
+                        <a href="{{ project.url }}" target="_blank" rel="noopener" class="project-card__visit" aria-label="Siteyi Ziyaret Et">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="project-card__label">{{ project.category }}</div>
+                    <div class="project-card__name-display">{{ project.name }}</div>
+                </div>
+                <div class="project-card__body">
+                    <h3 class="project-card__title">{{ project.name }}</h3>
+                    <p class="project-card__desc">{{ project.short_desc }}</p>
+                    <div class="project-card__tags">
+                        {% for tag in project.tags[:3] %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn--primary btn--sm">
+                        Detayları Gör <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-3 fade-up">
+            <a href="{{ url_for('portfolio') }}" class="btn btn--outline btn--lg">
+                Tüm Projeleri Gör <i class="fas fa-briefcase"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CONTACT CTA ===== -->
+<section class="section cta-section">
+    <div class="container">
+        <div class="cta-box fade-up">
+            <div class="cta-box__content">
+                <span class="cta-box__label"><i class="fas fa-rocket"></i> Hadi Başlayalım</span>
+                <h2 class="cta-box__title">Projenizi Hayata Geçirmeye<br>Hazır Mısınız?</h2>
+                <p class="cta-box__subtitle">Ücretsiz danışmanlık görüşmesi için hemen iletişime geçin. Projenizi dinleyeyim, size en uygun çözümü sunayım.</p>
+                <div class="cta-box__actions">
+                    <a href="{{ url_for('contact') }}" class="btn btn--accent btn--lg">
+                        <i class="fas fa-paper-plane"></i> Ücretsiz Teklif Al
+                    </a>
+                    <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+                        <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

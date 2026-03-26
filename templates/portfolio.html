@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Portföy | Bekir Yılmaz - Web Geliştirici{% endblock %}
+{% block meta_description %}Tamamladığım web projelerini inceleyin. Kurumsal siteler, e-ticaret çözümleri ve admin panelli sistemler.{% endblock %}
+{% block og_url %}/portfolio{% endblock %}
+
+{% block content %}
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{{ url_for('index') }}">Anasayfa</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Portföy</span>
+        </nav>
+        <h1 class="page-hero__title fade-in">Portföyüm</h1>
+        <p class="page-hero__subtitle fade-in fade-in--delay-1">Gerçek müşteriler için ürettiğim, canlıya alınmış projeler.</p>
+    </div>
+</section>
+
+<!-- ===== PORTFOLIO GRID ===== -->
+<section class="section">
+    <div class="container">
+        <div class="portfolio__grid portfolio__grid--full">
+            {% for project in projects %}
+            <div class="project-card fade-up">
+                <div class="project-card__image" style="background: linear-gradient(135deg, {{ project.color_from }}, {{ project.color_to }});">
+                    <div class="project-card__overlay">
+                        <a href="{{ project.url }}" target="_blank" rel="noopener" class="project-card__visit" aria-label="Canlı Siteyi Ziyaret Et">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Siteyi Ziyaret Et</span>
+                        </a>
+                    </div>
+                    <div class="project-card__label">{{ project.category }}</div>
+                    <div class="project-card__name-display">{{ project.name }}</div>
+                </div>
+                <div class="project-card__body">
+                    <div class="project-card__meta">
+                        <span class="project-card__year"><i class="fas fa-calendar"></i> {{ project.year }}</span>
+                        <span class="project-card__duration"><i class="fas fa-clock"></i> {{ project.duration }}</span>
+                    </div>
+                    <h3 class="project-card__title">{{ project.name }}</h3>
+                    <p class="project-card__desc">{{ project.short_desc }}</p>
+                    <div class="project-card__tags">
+                        {% for tag in project.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    <a href="{{ url_for('project_detail', slug=project.slug) }}" class="btn btn--primary btn--sm">
+                        Detayları Gör <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section cta-section">
+    <div class="container">
+        <div class="cta-box fade-up">
+            <div class="cta-box__content">
+                <span class="cta-box__label"><i class="fas fa-plus-circle"></i> Bir Sonraki Proje</span>
+                <h2 class="cta-box__title">Projeniz Burada Olsun!</h2>
+                <p class="cta-box__subtitle">Sizin için de benzeri bir çözüm üreteyim. Ücretsiz danışmanlık için hemen yazın.</p>
+                <div class="cta-box__actions">
+                    <a href="{{ url_for('contact') }}" class="btn btn--accent btn--lg">
+                        <i class="fas fa-paper-plane"></i> Ücretsiz Teklif Al
+                    </a>
+                    <a href="https://wa.me/905551234567" target="_blank" rel="noopener" class="btn btn--whatsapp btn--lg">
+                        <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
