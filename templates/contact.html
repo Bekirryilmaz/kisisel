@@ -34,7 +34,7 @@
                 </p>
 
                 <div class="contact-channels">
-                    <a href="https://wa.me/{{ contact.whatsapp }}" target="_blank" rel="noopener" class="contact-channel contact-channel--wa">
+                    <a href="https://wa.me/{{ contact.whatsapp }}?text=Merhaba%20Ebubekir%2C%20portfolyo%20siten%20%C3%BCzerinden%20seninle%20ileti%C5%9Fime%20ge%C3%A7iyorum." target="_blank" rel="noopener" class="contact-channel contact-channel--wa">
                         <div class="contact-channel__icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -81,12 +81,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="contact-info__hours">
-                    <h4><i class="fas fa-clock"></i> Çalışma Saatleri</h4>
-                    <p>Pazartesi – Cumartesi: 09:00 – 22:00</p>
-                    <p>Pazar: Acil durumlar için WhatsApp</p>
-                </div>
             </div>
 
             <!-- Contact Form -->
@@ -131,6 +125,20 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="konu" class="form-label">
+                                <i class="fas fa-tag"></i> Konu
+                            </label>
+                            <input
+                                type="text"
+                                id="konu"
+                                name="konu"
+                                class="form-input"
+                                placeholder="Örn: Web sitesi teklifi, Bilgi almak istiyorum..."
+                                autocomplete="off"
+                            >
+                        </div>
+
+                        <div class="form-group">
                             <label for="mesaj" class="form-label">
                                 <i class="fas fa-comment-alt"></i> Mesajınız *
                             </label>
@@ -156,7 +164,7 @@
 </section>
 
 <!-- ===== WHATSAPP FLOATING ===== -->
-<a href="https://wa.me/{{ contact.whatsapp }}?text=Merhaba,%20web%20sitesi%20projesi%20hakkında%20bilgi%20almak%20istiyorum." 
+<a href="https://wa.me/{{ contact.whatsapp }}?text=Merhaba%20Ebubekir%2C%20portfolyo%20siten%20%C3%BCzerinden%20seninle%20ileti%C5%9Fime%20ge%C3%A7iyorum." 
    target="_blank" 
    rel="noopener"
    class="whatsapp-float"
