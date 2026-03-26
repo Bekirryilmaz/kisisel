@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Bekir Yılmaz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+        /* Sidebar */
+        .sidebar {
+            position: fixed; top: 0; left: 0; bottom: 0; width: 260px;
+            background: #161b27;
+            border-right: 1px solid rgba(255,255,255,0.06);
+            display: flex; flex-direction: column;
+            z-index: 100;
+        }
+        .sidebar__brand {
+            padding: 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .sidebar__brand h2 {
+            font-size: 18px; font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .sidebar__brand p { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+        .sidebar__nav { flex: 1; padding: 16px 12px; }
+        .sidebar__nav a {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; border-radius: 8px;
+            color: rgba(255,255,255,0.6); text-decoration: none;
+            font-size: 14px; font-weight: 500;
+            transition: all .2s;
+            margin-bottom: 4px;
+        }
+        .sidebar__nav a:hover, .sidebar__nav a.active {
+            background: rgba(102,126,234,.15);
+            color: #667eea;
+        }
+        .sidebar__nav a i { width: 18px; text-align: center; }
+        .sidebar__footer { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .sidebar__footer a {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; border-radius: 8px;
+            color: rgba(255,255,255,0.4); text-decoration: none;
+            font-size: 13px; transition: all .2s;
+        }
+        .sidebar__footer a:hover { color: #ef4444; background: rgba(239,68,68,.1); }
+        /* Main */
+        .main { margin-left: 260px; padding: 32px; min-height: 100vh; }
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 32px;
+        }
+        .topbar h1 { font-size: 22px; font-weight: 700; }
+        .topbar .badge {
+            background: rgba(102,126,234,.15);
+            color: #667eea; border-radius: 20px;
+            padding: 4px 12px; font-size: 12px; font-weight: 600;
+        }
+        /* Stats */
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+        .stat-card {
+            background: #161b27;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; padding: 20px;
+        }
+        .stat-card__label { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+        .stat-card__value { font-size: 28px; font-weight: 700; }
+        /* Table */
+        .card {
+            background: #161b27;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; overflow: hidden;
+        }
+        .card__header {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .card__header h3 { font-size: 16px; font-weight: 600; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: 8px;
+            font-size: 13px; font-weight: 600; font-family: inherit;
+            text-decoration: none; cursor: pointer; border: none;
+            transition: all .2s;
+        }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn-primary:hover { opacity: .9; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+        .btn-ghost {
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.7);
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+        .btn-danger { background: rgba(239,68,68,.15); color: #ef4444; }
+        .btn-danger:hover { background: rgba(239,68,68,.25); }
+        table { width: 100%; border-collapse: collapse; }
+        th {
+            padding: 12px 16px; text-align: left;
+            font-size: 11px; font-weight: 600;
+            color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: .05em;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 14px; vertical-align: middle;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        .project-color-dot {
+            width: 32px; height: 32px; border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .project-info { display: flex; align-items: center; gap: 12px; }
+        .project-name { font-weight: 600; }
+        .project-cat { font-size: 12px; color: rgba(255,255,255,0.4); }
+        .actions { display: flex; align-items: center; gap: 8px; }
+        /* Flash */
+        .flash-container { margin-bottom: 24px; }
+        .flash {
+            padding: 12px 16px; border-radius: 8px;
+            font-size: 14px; display: flex; align-items: center; gap: 8px;
+            margin-bottom: 8px;
+        }
+        .flash--success { background: rgba(16,185,129,.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,.3); }
+        .flash--error { background: rgba(239,68,68,.15); color: #fca5a5; border: 1px solid rgba(239,68,68,.3); }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 200px; }
+            .main { margin-left: 200px; padding: 20px; }
+            .stats-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar__brand">
+        <h2>Admin Panel</h2>
+        <p>Bekir Yılmaz Portfolio</p>
+    </div>
+    <nav class="sidebar__nav">
+        <a href="{{ url_for('admin_dashboard') }}" class="active">
+            <i class="fas fa-th-large"></i> Dashboard
+        </a>
+        <a href="{{ url_for('admin_project_new') }}">
+            <i class="fas fa-plus-circle"></i> Yeni Proje
+        </a>
+        <a href="{{ url_for('index') }}" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Siteyi Görüntüle
+        </a>
+    </nav>
+    <div class="sidebar__footer">
+        <a href="{{ url_for('admin_logout') }}">
+            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+        </a>
+    </div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <h1>Dashboard</h1>
+        <span class="badge"><i class="fas fa-user-shield"></i> Superadmin</span>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash flash--{{ category }}">
+                <i class="fas {% if category == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-card__label"><i class="fas fa-folder"></i> Toplam Proje</div>
+            <div class="stat-card__value">{{ projects|length }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__label"><i class="fas fa-eye"></i> Site Durumu</div>
+            <div class="stat-card__value" style="font-size:18px;color:#10b981;">Canlı</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__label"><i class="fas fa-calendar"></i> Yıl</div>
+            <div class="stat-card__value">2026</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card__header">
+            <h3><i class="fas fa-briefcase"></i> Projeler</h3>
+            <a href="{{ url_for('admin_project_new') }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Yeni Proje
+            </a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Proje</th>
+                    <th>Kategori</th>
+                    <th>Yıl</th>
+                    <th>Süre</th>
+                    <th>Sıra</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td>
+                        <div class="project-info">
+                            <div class="project-color-dot"
+                                 style="background: linear-gradient(135deg, {{ project.color_from }}, {{ project.color_to }});">
+                            </div>
+                            <div>
+                                <div class="project-name">{{ project.name }}</div>
+                                <div class="project-cat">{{ project.slug }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ project.category }}</td>
+                    <td>{{ project.year or '-' }}</td>
+                    <td>{{ project.duration or '-' }}</td>
+                    <td>{{ project.order }}</td>
+                    <td>
+                        <div class="actions">
+                            <a href="{{ url_for('project_detail', slug=project.slug) }}" target="_blank"
+                               class="btn btn-ghost btn-sm" title="Görüntüle">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ url_for('admin_project_edit', pid=project.id) }}"
+                               class="btn btn-ghost btn-sm" title="Düzenle">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="POST" action="{{ url_for('admin_project_delete', pid=project.id) }}"
+                                  onsubmit="return confirm('Bu projeyi silmek istediğinize emin misiniz?')">
+                                <button type="submit" class="btn btn-danger btn-sm" title="Sil">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% if not projects %}
+                <tr>
+                    <td colspan="6" style="text-align:center;color:rgba(255,255,255,0.3);padding:40px;">
+                        Henüz proje eklenmemiş.
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</main>
+
+</body>
+</html>

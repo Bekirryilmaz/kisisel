@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'new' %}Yeni Proje{% else %}Proje Düzenle{% endif %} | Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+        .sidebar {
+            position: fixed; top: 0; left: 0; bottom: 0; width: 260px;
+            background: #161b27; border-right: 1px solid rgba(255,255,255,0.06);
+            display: flex; flex-direction: column; z-index: 100;
+        }
+        .sidebar__brand { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .sidebar__brand h2 {
+            font-size: 18px; font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .sidebar__brand p { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+        .sidebar__nav { flex: 1; padding: 16px 12px; }
+        .sidebar__nav a {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; border-radius: 8px;
+            color: rgba(255,255,255,0.6); text-decoration: none;
+            font-size: 14px; font-weight: 500; transition: all .2s; margin-bottom: 4px;
+        }
+        .sidebar__nav a:hover, .sidebar__nav a.active { background: rgba(102,126,234,.15); color: #667eea; }
+        .sidebar__nav a i { width: 18px; text-align: center; }
+        .sidebar__footer { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .sidebar__footer a {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; border-radius: 8px;
+            color: rgba(255,255,255,0.4); text-decoration: none; font-size: 13px; transition: all .2s;
+        }
+        .sidebar__footer a:hover { color: #ef4444; background: rgba(239,68,68,.1); }
+        .main { margin-left: 260px; padding: 32px; }
+        .topbar { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+        .topbar a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 14px; }
+        .topbar a:hover { color: white; }
+        .topbar h1 { font-size: 22px; font-weight: 700; }
+        .card {
+            background: #161b27;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; overflow: hidden; margin-bottom: 24px;
+        }
+        .card__header {
+            padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .card__header h3 { font-size: 16px; font-weight: 600; }
+        .card__body { padding: 24px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group--full { grid-column: 1 / -1; }
+        label {
+            font-size: 12px; font-weight: 600;
+            color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: .05em;
+        }
+        input[type="text"], input[type="url"], input[type="number"], input[type="color"],
+        textarea, select {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 10px 14px;
+            color: white; font-size: 14px; font-family: inherit; outline: none;
+            transition: border-color .2s; width: 100%;
+        }
+        input[type="color"] { padding: 4px 8px; height: 40px; cursor: pointer; }
+        input:focus, textarea:focus { border-color: #667eea; }
+        textarea { resize: vertical; min-height: 80px; }
+        .hint { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+        .color-preview {
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+        }
+        .color-row { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .preview-box {
+            height: 40px; border-radius: 8px; flex: 1;
+            transition: background .3s;
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 20px; border-radius: 8px;
+            font-size: 14px; font-weight: 600; font-family: inherit;
+            text-decoration: none; cursor: pointer; border: none; transition: all .2s;
+        }
+        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn-primary:hover { opacity: .9; }
+        .btn-ghost {
+            background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.7);
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+        .form-actions { display: flex; gap: 12px; padding-top: 8px; }
+        input[type="file"] {
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 8px; padding: 10px 14px;
+            color: rgba(255,255,255,0.6); font-size: 13px;
+        }
+        .screenshot-preview { margin-top: 8px; }
+        .screenshot-preview img { max-height: 120px; border-radius: 8px; border: 1px solid rgba(255,255,255,.1); }
+        @media (max-width: 900px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .form-grid--3 { grid-template-columns: 1fr; }
+            .sidebar { width: 200px; }
+            .main { margin-left: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar__brand">
+        <h2>Admin Panel</h2>
+        <p>Bekir Yılmaz Portfolio</p>
+    </div>
+    <nav class="sidebar__nav">
+        <a href="{{ url_for('admin_dashboard') }}">
+            <i class="fas fa-th-large"></i> Dashboard
+        </a>
+        <a href="{{ url_for('admin_project_new') }}" {% if action == 'new' %}class="active"{% endif %}>
+            <i class="fas fa-plus-circle"></i> Yeni Proje
+        </a>
+        <a href="{{ url_for('index') }}" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Siteyi Görüntüle
+        </a>
+    </nav>
+    <div class="sidebar__footer">
+        <a href="{{ url_for('admin_logout') }}">
+            <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+        </a>
+    </div>
+</aside>
+
+<main class="main">
+    <div class="topbar">
+        <a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-arrow-left"></i></a>
+        <h1>{% if action == 'new' %}Yeni Proje Ekle{% else %}Projeyi Düzenle: {{ project.name }}{% endif %}</h1>
+    </div>
+
+    <form method="POST"
+          action="{% if action == 'new' %}{{ url_for('admin_project_new') }}{% else %}{{ url_for('admin_project_edit', pid=project.id) }}{% endif %}"
+          enctype="multipart/form-data">
+
+        <!-- Basic Info -->
+        <div class="card">
+            <div class="card__header">
+                <i class="fas fa-info-circle"></i>
+                <h3>Temel Bilgiler</h3>
+            </div>
+            <div class="card__body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Proje Adı *</label>
+                        <input type="text" name="name" required
+                               value="{{ project.name if project else '' }}" placeholder="Örn: Hayder İnşaat">
+                    </div>
+                    <div class="form-group">
+                        <label>Slug (URL) *</label>
+                        <input type="text" name="slug" required
+                               value="{{ project.slug if project else '' }}" placeholder="Örn: hayder-insaat">
+                        <span class="hint">Küçük harf, tire ile, boşluksuz</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Kısa Açıklama *</label>
+                        <input type="text" name="short_desc" required
+                               value="{{ project.short_desc if project else '' }}"
+                               placeholder="Proje için kısa bir açıklama">
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori *</label>
+                        <input type="text" name="category" required
+                               value="{{ project.category if project else '' }}"
+                               placeholder="Örn: Kurumsal Web Sitesi">
+                    </div>
+                    <div class="form-group">
+                        <label>Canlı URL *</label>
+                        <input type="url" name="url" required
+                               value="{{ project.url if project else '' }}"
+                               placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Müşteri</label>
+                        <input type="text" name="client"
+                               value="{{ project.client if project else '' }}"
+                               placeholder="Örn: Hayder İnşaat A.Ş.">
+                    </div>
+                    <div class="form-group">
+                        <label>Yıl</label>
+                        <input type="text" name="year"
+                               value="{{ project.year if project else '' }}" placeholder="2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Yapım Süresi</label>
+                        <input type="text" name="duration"
+                               value="{{ project.duration if project else '' }}" placeholder="1 Hafta">
+                    </div>
+                    <div class="form-group">
+                        <label>Sıralama</label>
+                        <input type="number" name="order"
+                               value="{{ project.order if project else 0 }}" min="0">
+                        <span class="hint">Küçük sayı öne gelir</span>
+                    </div>
+                    <div class="form-group form-group--full">
+                        <label>Açıklama *</label>
+                        <textarea name="description" required rows="3"
+                                  placeholder="Proje hakkında genel açıklama">{{ project.description if project else '' }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colors -->
+        <div class="card">
+            <div class="card__header">
+                <i class="fas fa-palette"></i>
+                <h3>Renk Teması</h3>
+            </div>
+            <div class="card__body">
+                <div class="color-preview">
+                    <div class="color-row">
+                        <label>Başlangıç</label>
+                        <input type="color" name="color_from" id="colorFrom"
+                               value="{{ project.color_from if project else '#1a1a2e' }}">
+                    </div>
+                    <div class="color-row">
+                        <label>Bitiş</label>
+                        <input type="color" name="color_to" id="colorTo"
+                               value="{{ project.color_to if project else '#e94560' }}">
+                    </div>
+                    <div class="preview-box" id="previewBox"
+                         style="background: linear-gradient(135deg, {{ project.color_from if project else '#1a1a2e' }}, {{ project.color_to if project else '#e94560' }});">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lists -->
+        <div class="card">
+            <div class="card__header">
+                <i class="fas fa-list"></i>
+                <h3>Listeler (her satıra bir öğe)</h3>
+            </div>
+            <div class="card__body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Etiketler (Tags)</label>
+                        <textarea name="tags" rows="4"
+                                  placeholder="HTML5&#10;CSS3&#10;JavaScript">{{ (project.tags | join('\n')) if project else '' }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Teknolojiler</label>
+                        <textarea name="technologies" rows="4"
+                                  placeholder="Python&#10;Flask&#10;SQLite">{{ (project.technologies | join('\n')) if project else '' }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Özellikler</label>
+                        <textarea name="features" rows="4"
+                                  placeholder="Responsive Tasarım&#10;SEO Optimizasyonu">{{ (project.features | join('\n')) if project else '' }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Sonuçlar</label>
+                        <textarea name="results" rows="4"
+                                  placeholder="Mobil uyumlu site&#10;SEO görünürlüğü">{{ (project.results | join('\n')) if project else '' }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Texts -->
+        <div class="card">
+            <div class="card__header">
+                <i class="fas fa-file-alt"></i>
+                <h3>Detaylı Metinler</h3>
+            </div>
+            <div class="card__body">
+                <div class="form-grid">
+                    <div class="form-group form-group--full">
+                        <label>Müşteri İhtiyaçları</label>
+                        <textarea name="client_needs" rows="3">{{ project.client_needs if project else '' }}</textarea>
+                    </div>
+                    <div class="form-group form-group--full">
+                        <label>Çözüm</label>
+                        <textarea name="solution" rows="3">{{ project.solution if project else '' }}</textarea>
+                    </div>
+                    <div class="form-group form-group--full">
+                        <label>Tasarım Yaklaşımı</label>
+                        <textarea name="design_approach" rows="3">{{ project.design_approach if project else '' }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshot -->
+        <div class="card">
+            <div class="card__header">
+                <i class="fas fa-image"></i>
+                <h3>Ekran Görüntüsü</h3>
+            </div>
+            <div class="card__body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Ekran Görüntüsü URL</label>
+                        <input type="url" name="screenshot_url"
+                               value="{{ project.screenshot_url if project and project.screenshot_url else '' }}"
+                               placeholder="https://example.com/screenshot.png">
+                        <span class="hint">Ya URL girin ya da aşağıdan dosya yükleyin</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Dosya Yükle</label>
+                        <input type="file" name="screenshot_file" accept="image/*">
+                        {% if project and project.screenshot_file %}
+                        <div class="screenshot-preview">
+                            <img src="{{ url_for('static', filename='uploads/' + project.screenshot_file) }}"
+                                 alt="Mevcut ekran görüntüsü">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i>
+                {% if action == 'new' %}Proje Ekle{% else %}Değişiklikleri Kaydet{% endif %}
+            </button>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-ghost">
+                <i class="fas fa-times"></i> İptal
+            </a>
+        </div>
+
+    </form>
+</main>
+
+<script>
+const colorFrom = document.getElementById('colorFrom');
+const colorTo = document.getElementById('colorTo');
+const previewBox = document.getElementById('previewBox');
+
+function updatePreview() {
+    previewBox.style.background = `linear-gradient(135deg, ${colorFrom.value}, ${colorTo.value})`;
+}
+colorFrom.addEventListener('input', updatePreview);
+colorTo.addEventListener('input', updatePreview);
+</script>
+</body>
+</html>
